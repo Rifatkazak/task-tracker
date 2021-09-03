@@ -7,7 +7,16 @@ import List from "../list/List"
 function Button() {
     const [tasks, setTasks] = useState([{id:0, text:"project", day:"thursday", category:"office", isDone:false }])
     const [isValid, setIsValid] = useState(true)
+    const [change,setChange] = useState(false)
 
+  
+
+    const changeBg = (id) => 
+        setTasks(tasks.map((task) => 
+                task.id === id ? {...task, isDone: !task.isDone} : task
+    )
+  );
+    
     const toggle = () =>{
         setIsValid(!isValid)
     }
@@ -26,7 +35,7 @@ function Button() {
         <div>
             <button onClick={toggle}>{isValid ? show: hide} </button>
             {!isValid && <Form tasks = {tasks} setTasks={setTasks} />}
-            <List deleteItem={deleteItem} tasks={tasks} setTasks={setTasks}/>
+            <List deleteItem={deleteItem} tasks={tasks} setTasks={setTasks} change={change} changeBg = {changeBg} />
 
         </div>
         
